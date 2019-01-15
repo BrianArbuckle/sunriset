@@ -1,5 +1,7 @@
 # sunshine
+
 A Solar Calculator
+==========
 
 This packege can generate **Solar Posistion Data** based on Latitiude, Logitude, Date and Time Zone.  Future updates will include elevation data.  
 
@@ -7,8 +9,6 @@ The initial goal was to create a "simple" function that produced the daily sunri
 
 Get It Now
 ==========
-
-::
 
     $ pip install sunshine
 
