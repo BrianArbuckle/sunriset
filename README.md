@@ -1,6 +1,7 @@
-# sunshine
+Sunshine
+==========
 
-A Solar Calculator
+Solar Calculator
 ==========
 
 This packege generates **Solar Posistion Data** based on Latitiude, Logitude, Date and Time Zone.  
