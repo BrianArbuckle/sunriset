@@ -34,9 +34,13 @@ Requirements
 ============
 
 datetime
+
 datetime - timedelta
+
 math
-pytz
+
+pytz (still in progress)
+
 pandas
 
 Additional Requirements
