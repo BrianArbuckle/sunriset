@@ -19,7 +19,7 @@ Documentation
 
 The built in outputs include:
 
-Pandas Dtatframe of all built in calculations. 
+Pandas Dataframe of all built in calculations. 
 
 Daily Sunrise, Sunset & Solar Noon time. - In Progress
 
