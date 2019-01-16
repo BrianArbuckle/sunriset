@@ -47,6 +47,7 @@ Additional Requirements
 ============ 
 Matplotlib 
 
+-----
 
 ***Disclaimer Data for Litigation***
 The sunshine Solar Calculator is for research and recreational use only. The authors cannot certify or authenticate sunrise, sunset or solar position data. We do not collect observations of astronomical data, and due to atmospheric conditions our calculated results may vary significantly from actual observed values.
