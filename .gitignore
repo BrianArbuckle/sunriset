@@ -3,3 +3,4 @@ build/
 *.pdf
 /snadbox/
 .DS_Store
+/.ipynb_checkpoints/
