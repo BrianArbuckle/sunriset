@@ -1,9 +1,9 @@
 """This module contains the main functions of 'sunshine.' 
 
-Sunshine generates Solar Posistion Data based on Latitiude, Logitude, Date and 
-Time Zone. 
+Sunshine generates Solar Position Data based on Latitude, Longitude, Date and 
+Time Zone.  
 
-Note: For idividual, detailed calculations, run help(sunshine.calc). 
+Note: For individual, detailed calculations, run help(sunshine.calc). 
 """
 
 import calc
@@ -13,9 +13,9 @@ import pandas as pd
 
 
 def to_pandas(start_date, lat, long, local_tz, number_of_years):
-    """Returns a Pandas Dataframe of all the calculations for various solar projects.
+    """Returns a Pandas DataFrame of all the calculations for various solar projects.
     With a datetime.date for starting date, local latitude, lat, local Longitude, long
-    and local Time Zone as a potitive or negative integer. """
+    and local Time Zone as a positive or negative integer. """
 
     # this will evelntially be the daylight savings output:
     tz_adjust = 0
@@ -110,9 +110,9 @@ def to_pandas(start_date, lat, long, local_tz, number_of_years):
 
 
 def to_dict(start_date, lat, long, local_tz, number_of_years):
-    """Returns a Pandas Dataframe of all the calculations for various solar projects.
-    With a datetime.date for starting date, local latitude, lat, local Longitude, long
-    and local Time Zone as a potitive or negative integer. """
+    """Returns a Pandas DataFrame of all the calculations for various solar projects.
+    With a datetime.date for starting date, Latitude, lat, local Longitude, long
+    and local Time Zone as a positive or negative integer. """
 
     # this will evelntially be the daylight savings output:
     tz_adjust = 0
