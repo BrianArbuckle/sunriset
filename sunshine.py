@@ -63,51 +63,68 @@ def to_pandas(start_date, lat, long, local_tz, number_of_years):
         aprx = calc.approx_atmospheric_refraction(sela)
         atmr = calc.solar_elevation_corrected_atm_refraction(aprx, sela)
         azmt = calc.solar_azimuth(hand, lat, szen, sdec)
-        dict_for_df[yr] = [julian_day , julian_cent, sgml, sgma, eceo, seoc ,
-                           stlg , stan , svau , salg , mobe , ocor, asce, sdec, vary, 
-                           eqtm, hans, soln, srif, setf, noon, rise, sset, sdur,
-                           trst, hand, szen, sela, aprx, atmr, azmt]     
-    df = pd.DataFrame.from_dict(dict_for_df, orient='index',
-                                columns=['Julian Day','Julian Century',
-                                         'Solar Geometric Mean Longitude',
-                                         'Solar Geometric Mean Anomaly',
-                                         'Eccentricity Earth Orbit' , 
-                                         'Solar Equation of Center', 
-                                         'Solar True Longitude',
-                                         'Solar True Anomaly',
-                                         'Solar Radius Vector AUs', 
-                                         'Solar Apparent Longitude' , 
-                                         'Mean Obliquity of Ecliptic', 
-                                         'Obliquity Correction Degrees', 
-                                         'Solar Accent Return', 'Solar Decline', 'Var Y', 
-                                         'Equation Of Time Min', 'Hour Angle Sunrise', 
-                                         'Solar Noon (float)', 'Sunrise (float)',
-                                         'Sunset (float)', 'Solar Noon', 'Sunrise', 
-                                         'Sunset', 'Sunlight Durration (minutes)', 
-                                         'Ture Solar Time', 'Hour Angle Deg',
-                                         'Solar Zenith Angle (degrees)', 
-                                         'Solar Elevation Angle (degrees)', 
-                                         'Approximate Atmospheric Refraction (degrees)', 
-                                         'Solar Elevation Corrected ATM Refraction (degrees)', 
-                                         'Solar Azimuth Angle (degrees cw from North)'])
-    return(df)
+        dict_for_df[yr] = [
+            julian_day, julian_cent, sgml, sgma, eceo, seoc, stlg,
+            stan, svau, salg, mobe, ocor, asce, sdec, vary, eqtm,
+            hans, soln, srif, setf, noon, rise, sset, sdur, trst,
+            hand, szen, sela, aprx, atmr, azmt,
+        ]
+    df = pd.DataFrame.from_dict(
+        dict_for_df,
+        orient="index",
+        columns=[
+            "Julian Day",
+            "Julian Century",
+            "Solar Geometric Mean Longitude",
+            "Solar Geometric Mean Anomaly",
+            "Eccentricity Earth Orbit",
+            "Solar Equation of Center",
+            "Solar True Longitude",
+            "Solar True Anomaly",
+            "Solar Radius Vector AUs",
+            "Solar Apparent Longitude",
+            "Mean Obliquity of Ecliptic",
+            "Obliquity Correction Degrees",
+            "Solar Accent Return",
+            "Solar Decline",
+            "Var Y",
+            "Equation Of Time Min",
+            "Hour Angle Sunrise",
+            "Solar Noon (float)",
+            "Sunrise (float)",
+            "Sunset (float)",
+            "Solar Noon",
+            "Sunrise",
+            "Sunset",
+            "Sunlight Durration (minutes)",
+            "Ture Solar Time",
+            "Hour Angle Deg",
+            "Solar Zenith Angle (degrees)",
+            "Solar Elevation Angle (degrees)",
+            "Approximate Atmospheric Refraction (degrees)",
+            "Solar Elevation Corrected ATM Refraction (degrees)",
+            "Solar Azimuth Angle (degrees cw from North)",
+        ],
+    )
+    return df
+
 
 def to_dict(start_date, lat, long, local_tz, number_of_years):
     """Returns a Pandas Dataframe of all the calculations for various solar projects.
     With a datetime.date for starting date, local latitude, lat, local Longitude, long
     and local Time Zone as a potitive or negative integer. """
-    
+
     # this will evelntially be the daylight savings output:
     tz_adjust = 0
     year = int(start_date.year)
     # Number of days claculation
     total_days = 0
-    for y in range(1, number_of_years + 1):    
-        if(year%4==0 and year%100!=0 or year%400==0):
+    for y in range(1, number_of_years + 1):
+        if year % 4 == 0 and year % 100 != 0 or year % 400 == 0:
             total_days += 366
         else:
             total_days += 365
-            
+
     dict_for_df = {}
     for i in range(0, total_days):
         # Our arguments are passed as positional maybe not best practice?
