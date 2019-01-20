@@ -1,9 +1,9 @@
-"""This module contains the main functions of 'sunshine.' 
+"""This module contains the main functions of 'sunriset.' 
 
-Sunshine generates Solar Position Data based on Latitude, Longitude, Date and 
+Sunriset generates Solar Position Data based on Latitude, Longitude, Date and 
 Time Zone.  
 
-Note: For individual, detailed calculations, run help(sunshine.calc). 
+Note: For individual, detailed calculations, run help(sunriset.calc). 
 """
 
 import calc
