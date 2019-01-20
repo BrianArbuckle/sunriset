@@ -3,7 +3,7 @@
 Sunriset generates Solar Position Data based on Latitude, Longitude, Date and 
 Time Zone.  
 
-Note: For individual, detailed calculations, run help(sunshine.calc). 
+Note: For individual, detailed calculations, run help(sunriset.calc). 
 """
 
 import calc
