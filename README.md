@@ -1,4 +1,4 @@
-Sunshine
+Sunriset
 ==========
 
 Solar Calculator
@@ -12,7 +12,7 @@ The initial goal was to create a *simple* function that produced the daily sunri
 Get It Now
 ==========
 
-    $ pip install sunshine
+    $ pip install sunriset
 
 
 Documentation
@@ -51,6 +51,6 @@ Matplotlib
 -----
 
 ***Disclaimer Data for Litigation:***
-The sunshine Solar Calculator is for research and recreational use only. The authors cannot certify or authenticate sunrise, sunset or solar position data. We do not collect observations of astronomical data, and due to atmospheric conditions, our calculated results may vary significantly from actual observed values.
+The sunriset Solar Calculator is for research and recreational use only. The authors cannot certify or authenticate sunrise, sunset or solar position data. We do not collect observations of astronomical data, and due to atmospheric conditions, our calculated results may vary significantly from actual observed values.
 
 For further information, please see the U.S. Naval Observatory's page Astronomical Data Used for Litigation.
