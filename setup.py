@@ -5,15 +5,15 @@ with open("README.md", "r") as fh:
 
 
 setuptools.setup(
-     name='sunshine',  
+     name='sunriset',  
      version='1.0dev',
-     scripts=['sunshine'] ,
+     scripts=['sunriset'] ,
      author="Brian Arbuckle",
      author_email="brian@brianarbuckle.com",
      description="A Solar Calculator",
      long_description=long_description,
    long_description_content_type="text/markdown",
-     url="https://github.com/tzujan/sunshine",
+     url="https://github.com/tzujan/sunriset",
      packages=setuptools.find_packages(),
      classifiers=[
          "Programming Language :: Python :: 3",
