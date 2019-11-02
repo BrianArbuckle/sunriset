@@ -6,13 +6,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='sunriset',
-    version='1.0.dev',
+    version='1.0',
     author="Brian Arbuckle",
     author_email="brian@brianarbuckle.com",
     description="A Solar Calculator",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/tzujan/sunriset",
+    url="https://github.com/BrianArbuckle/sunriset",
     packages=setuptools.find_packages(),
     install_requires=[
           'pytz',
