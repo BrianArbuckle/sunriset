@@ -4,3 +4,6 @@ build/
 /snadbox/
 .DS_Store
 /.ipynb_checkpoints/
+/build/
+/dist/
+/sunriset.egg-info/
