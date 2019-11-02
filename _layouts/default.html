@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="{{ site.lang | default: "en-US" }}">
+
+    {%- include head.html -%}
+    
+  <body>
+
+    {%- include header.html -%}
+
+    {%- include banner.html -%}
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+
+        <div class="ipynb-examples">
+          <a href="examples.html">Examples</a>
+        </div>
+        <div class="contributors">
+          Contributors: Jon Snow
+        </div>
+      
+      </nav>
+      
+      <section>
+        {{ content }}
+      </section>
+
+      {%- include footer.html -%}
+
+    </div>
+
+    {%- include google_analytics.html -%}
+
+  </body>
+</html>
