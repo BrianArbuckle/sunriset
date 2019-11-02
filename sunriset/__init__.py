@@ -11,6 +11,7 @@ import datetime
 from datetime import timedelta
 import pandas as pd
 
+from . import calc
 
 def to_pandas(start_date, lat, long, local_tz, number_of_years):
     """Returns a Pandas DataFrame of all the calculations for various solar projects.
