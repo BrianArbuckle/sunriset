@@ -59,14 +59,13 @@ nav {
 }
 
 div.ipynb-examples a{
-  font-weight: bold;
-  color: #333;
-  font-size: 1.2em;
+  color: #666;
 }
 
 
 div.contributors {
-  font-weight: bold;
-  color: #333;
-  font-size: 1.2em;
+  padding-top: 1rem;
+  a{
+    color: #666;
+  }  
 }

@@ -17,9 +17,11 @@
           <a href="examples.html">Examples</a>
         </div>
         <div class="contributors">
-          Contributors: Jon Snow
-        </div>
-      
+          Contributors: <br>
+            {% for c in site.github.contributors %}
+              <a href="{{ c.html_url }}">{{ c.login }}</a> &nbsp; <img src="{{ c.avatar_url }}" alt="contibutor" height="30" width="30"><br />
+            {% endfor %}
+        </div>  
       </nav>
       
       <section>
