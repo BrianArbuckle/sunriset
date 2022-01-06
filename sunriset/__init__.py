@@ -30,7 +30,7 @@ def to_pandas(start_date, lat, long, local_tz, number_of_years):
             total_days += 365
 
     dict_for_df = {}
-    for i in range(0, total_days):
+    for i in range(total_days):
         # Our arguments are passed as positional maybe not best practice?
         yr = start_date + datetime.timedelta(days=i)
         julian_day = calc.julian_day(yr, local_tz)
@@ -70,7 +70,7 @@ def to_pandas(start_date, lat, long, local_tz, number_of_years):
             hans, soln, srif, setf, noon, rise, sset, sdur, trst,
             hand, szen, sela, aprx, atmr, azmt,
         ]
-    df = pd.DataFrame.from_dict(
+    return pd.DataFrame.from_dict(
         dict_for_df,
         orient="index",
         columns=[
@@ -107,7 +107,6 @@ def to_pandas(start_date, lat, long, local_tz, number_of_years):
             "Solar Azimuth Angle (degrees cw from North)",
         ],
     )
-    return df
 
 
 def to_dict(start_date, lat, long, local_tz, number_of_years):
@@ -127,7 +126,7 @@ def to_dict(start_date, lat, long, local_tz, number_of_years):
             total_days += 365
 
     dict_for_df = {}
-    for i in range(0, total_days):
+    for i in range(total_days):
         # Our arguments are passed as positional maybe not best practice?
         yr = start_date + datetime.timedelta(days=i)
         julian_day = calc.julian_day(yr, local_tz)
