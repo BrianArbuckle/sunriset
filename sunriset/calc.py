@@ -234,7 +234,7 @@ def solar_noon_float(equation_of_time, long, local_tz):
     return (720 - 4 * long - equation_of_time + local_tz * 60) / 1440
 
 
-def sunrise_float(solar_noon_float, hour_angle_sunrise):
+def sunrise_float(solar_noon_float: float, hour_angle_sunrise: float) -> float:
     """Returns Sunrise as float with Solar Noon Float, solar_noon_float
     and Hour Angle Deg, hour_angle_deg"""
     return (solar_noon_float * 1440 - hour_angle_sunrise * 4) / 1440
@@ -265,7 +265,7 @@ def hour_angle_deg(true_solar_time):
     )
 
 
-def solar_zenith_angle(lat, solar_decline, hour_angle):
+def solar_zenith_angle(lat: float, solar_decline: float, hour_angle: float) -> float:
     """Returns Solar Zenith Angle in Degrees, with Latitude, lat, Solar Decline (Degrees),
     solar_decline, Hour Angle (Degrees), hour_angle."""
     return math.degrees(
@@ -278,12 +278,12 @@ def solar_zenith_angle(lat, solar_decline, hour_angle):
     )
 
 
-def solar_elevation_angle(solar_zenith_angle):
+def solar_elevation_angle(solar_zenith_angle: float) -> float:
     """Returns Solar Angle in Degrees, with Solar Zenith Angle, solar_zenith_angle."""
     return 90 - solar_zenith_angle
 
 
-def approx_atmospheric_refraction(solar_elevation_angle):
+def approx_atmospheric_refraction(solar_elevation_angle: float) -> float:
     """Returns Approximate Atmospheric Refraction in degrees with Solar Elevation
     Angle, solar_elevation_angle."""
     if solar_elevation_angle > 85:
@@ -314,15 +314,17 @@ def approx_atmospheric_refraction(solar_elevation_angle):
 
 
 def solar_elevation_corrected_atm_refraction(
-    approx_atmospheric_refraction, solar_elevation_angle
-):
+    approx_atmospheric_refraction: float, solar_elevation_angle: float
+) -> float:
     """Returns the Solar Elevation Corrected Atmospheric Refraction, with the
     Approximate Atmospheric Refraction, approx_atmospheric_refraction and Solar
     Elevation Angle, solar_elevation_angle."""
     return approx_atmospheric_refraction + solar_elevation_angle
 
 
-def solar_azimuth(hour_angle, lat, solar_zenith_angle, solar_decline):
+def solar_azimuth(
+    hour_angle: float, lat: float, solar_zenith_angle: float, solar_decline: float
+) -> float:
     """Returns Solar Azimuth Angle Degrees Clockwise from North, with Latitude, lat and
     Solar Zenith Angle, solar_zenith_angle and Solar Decline, solar_decline."""
     return (
