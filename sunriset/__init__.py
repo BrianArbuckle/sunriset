@@ -22,12 +22,7 @@ def to_pandas(start_date, lat, long, local_tz, number_of_years):
     tz_adjust = 0
     year = int(start_date.year)
     # Number of days claculation
-    total_days = 0
-    for _y in range(1, number_of_years + 1):
-        if year % 4 == 0 and year % 100 != 0 or year % 400 == 0:
-            total_days += 366
-        else:
-            total_days += 365
+    total_days = sum(366 if year % 4 == 0 and year % 100 != 0 or year % 400 == 0 else 365 for _y in range(1, number_of_years + 1))
 
     dict_for_df = {}
     for i in range(total_days):
@@ -118,12 +113,7 @@ def to_dict(start_date, lat, long, local_tz, number_of_years):
     tz_adjust = 0
     year = int(start_date.year)
     # Number of days claculation
-    total_days = 0
-    for _y in range(1, number_of_years + 1):
-        if year % 4 == 0 and year % 100 != 0 or year % 400 == 0:
-            total_days += 366
-        else:
-            total_days += 365
+    total_days = sum(366 if year % 4 == 0 and year % 100 != 0 or year % 400 == 0 else 365 for _y in range(1, number_of_years + 1))
 
     dict_for_df = {}
     for i in range(total_days):

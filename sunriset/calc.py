@@ -10,8 +10,19 @@ days_century = 2451545  # this is Saturday, A.D. 2000 Jan 1  in the Julian Calen
 day_per_century = 36525
 
 
-def make_time(time_float, d_utz, tz_adjust):
-    """This function converts time_float to time of day"""
+def make_time(time_float: float, d_utz, tz_adjust: float) -> datetime.timedelta:
+    """This function converts time_float to datetime.timedelta and is used 
+    for internal calculations.
+
+    Args:
+        time_float (float): In Days, where the whole number 10, for example, 
+        would be ten days. While 10.5 would be 10 and a half days. 
+        tz_adjust (float): Temporary daylight savings tool.
+        d_utz (): placeholder for inheritance
+
+    Returns:
+        datetime.timedelta: a timedelta is in days and seconds.
+    """    
     return datetime.timedelta(time_float + tz_adjust)
 
 
@@ -31,7 +42,7 @@ def julian_day(usr_date, tz=0):
     The Julian Calendar start day Monday, January 1, 4713 12:00 Noon BCE.
     """
     ordinal_adj = 1721424.5
-    if isinstance(usr_date, datetime.date) == True:
+    if isinstance(usr_date, datetime.date):
         usr_date = usr_date.toordinal() + ordinal_adj
     else:
         usr_date = usr_date.date().toordinal() + ordinal_adj
@@ -244,8 +255,7 @@ def sunset_float(solar_noon_float, hour_angle_sunrise):
 def sunlight_duration(hour_angle_sunrise):
     """Returns the duration of Sunlight, in minutes, with Hour Angle in degrees, 
     hour_angle."""
-    sunlight_durration = 8 * hour_angle_sunrise  # this seems like the wrong output
-    return sunlight_durration
+    return 8 * hour_angle_sunrise
 
 
 def true_solar_time_min(equation_of_time, long, local_tz):
@@ -256,11 +266,7 @@ def true_solar_time_min(equation_of_time, long, local_tz):
 
 def hour_angle_deg(true_solar_time):
     """Returns Hour Angle in Degrees, with True Solar Time, true_solar_time."""
-    if true_solar_time < 0:
-        hour_angle_deg = true_solar_time / 4 + 180
-    else:
-        hour_angle_deg = true_solar_time / 4 - 180
-    return hour_angle_deg
+    return true_solar_time / 4 + 180 if true_solar_time < 0 else true_solar_time / 4 - 180
 
 
 def solar_zenith_angle(lat, solar_decline, hour_angle):
@@ -285,31 +291,15 @@ def approx_atmospheric_refraction(solar_elevation_angle):
     """Returns Approximate Atmospheric Refraction in degrees with Solar Elevation 
     Angle, solar_elevation_angle."""
     if solar_elevation_angle > 85:
-        approx_atmospheric_refraction = 0
+        return 0
     elif solar_elevation_angle > 5:
-        approx_atmospheric_refraction = (
-            58.1 / math.tan(math.radians(solar_elevation_angle))
-            - 0.07 / pow(math.tan(math.radians(solar_elevation_angle)), 3)
-            + 0.000086 / pow(math.tan(math.radians(solar_elevation_angle)), 5)
-        ) / 3600
+        return (58.1 / math.tan(math.radians(solar_elevation_angle)) - 0.07 / pow(math.tan(math.radians(solar_elevation_angle)), 3) + 0.000086 / pow(math.tan(math.radians(solar_elevation_angle)), 5)) / 3600
+
     elif solar_elevation_angle > -0.575:
-        approx_atmospheric_refraction = (
-            1735
-            + solar_elevation_angle
-            * (
-                -518.2
-                + solar_elevation_angle
-                * (
-                    103.4
-                    + solar_elevation_angle * (-12.79 + solar_elevation_angle * 0.711)
-                )
-            )
-        ) / 3600
+        return (1735 + solar_elevation_angle * (-518.2 + solar_elevation_angle * (103.4 + solar_elevation_angle * (-12.79 + solar_elevation_angle * 0.711)))) / 3600
+
     else:
-        approx_atmospheric_refraction = (
-            -20.772 / math.tan(math.radians(solar_elevation_angle))
-        ) / 3600
-    return approx_atmospheric_refraction
+        return (-20.772 / math.tan(math.radians(solar_elevation_angle))) / 3600
 
 
 def solar_elevation_corrected_atm_refraction(
@@ -326,45 +316,7 @@ def solar_elevation_corrected_atm_refraction(
 def solar_azimuth(hour_angle, lat, solar_zenith_angle, solar_decline):
     """Returns Solar Azimuth Angle Degrees Clockwise from North, with Latitude, lat and 
     Solar Zenith Angle, solar_zenith_angle and Solar Decline, solar_decline."""
-    if hour_angle > 0:
-        solar_azimuth_angle_deg_cw_from_n = (
-            math.degrees(
-                math.acos(
-                    (
-                        (
-                            math.sin(math.radians(lat))
-                            * math.cos(math.radians(solar_zenith_angle))
-                        )
-                        - math.sin(math.radians(solar_decline))
-                    )
-                    / (
-                        math.cos(math.radians(lat))
-                        * math.sin(math.radians(solar_zenith_angle))
-                    )
-                )
-            )
-            + 180
-        ) % 360
-    else:
-        solar_azimuth_angle_deg_cw_from_n = (
-            540
-            - math.degrees(
-                math.acos(
-                    (
-                        (
-                            math.sin(math.radians(lat))
-                            * math.cos(math.radians(solar_zenith_angle))
-                        )
-                        - math.sin(math.radians(solar_decline))
-                    )
-                    / (
-                        math.cos(math.radians(lat))
-                        * math.sin(math.radians(solar_zenith_angle))
-                    )
-                )
-            )
-        ) % 360
-    return solar_azimuth_angle_deg_cw_from_n
+    return (math.degrees(math.acos(((math.sin(math.radians(lat)) * math.cos(math.radians(solar_zenith_angle))) - math.sin(math.radians(solar_decline))) / (math.cos(math.radians(lat)) * math.sin(math.radians(solar_zenith_angle))))) + 180) % 360 if hour_angle > 0 else (540 - math.degrees(math.acos(((math.sin(math.radians(lat)) * math.cos(math.radians(solar_zenith_angle))) - math.sin(math.radians(solar_decline))) / (math.cos(math.radians(lat)) * math.sin(math.radians(solar_zenith_angle)))))) % 360
 
 
 
