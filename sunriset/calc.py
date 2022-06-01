@@ -1,8 +1,9 @@
 # This file is released under the MIT License OSI Approved.
 
 import datetime
-from datetime import timedelta
 import math
+from datetime import timedelta
+
 import pytz
 
 ordinal_adj = 1721424.5
@@ -11,18 +12,18 @@ day_per_century = 36525
 
 
 def make_time(time_float: float, d_utz, tz_adjust: float) -> datetime.timedelta:
-    """This function converts time_float to datetime.timedelta and is used 
+    """This function converts time_float to datetime.timedelta and is used
     for internal calculations.
 
     Args:
-        time_float (float): In Days, where the whole number 10, for example, 
-        would be ten days. While 10.5 would be 10 and a half days. 
+        time_float (float): In Days, where the whole number 10, for example,
+        would be ten days. While 10.5 would be 10 and a half days.
         tz_adjust (float): Temporary daylight savings tool.
         d_utz (): placeholder for inheritance
 
     Returns:
         datetime.timedelta: a timedelta is in days and seconds.
-    """    
+    """
     return datetime.timedelta(time_float + tz_adjust)
 
 
@@ -36,9 +37,9 @@ def make_date_time(time_float, d_utz, tz_adjust):
 
 
 def julian_day(usr_date, tz=0):
-    """Returns a local Julian Day float with datetime object 'date', 
+    """Returns a local Julian Day float with datetime object 'date',
     which defaults to today, and time zone, tz as a positive or negative integer.
-    
+
     The Julian Calendar start day Monday, January 1, 4713 12:00 Noon BCE.
     """
     ordinal_adj = 1721424.5
@@ -70,20 +71,16 @@ def solar_geometric_mean_longitude(julian_century):
 
 def solar_geometric_mean_anomaly(julian_century):
     """Returns the Anomaly of Solar Geometric Mean with Julian Century, julian_century."""
-    return 357.52911 + julian_century * (
-        35999.05029 - 0.0001537 * julian_century
-    )
+    return 357.52911 + julian_century * (35999.05029 - 0.0001537 * julian_century)
 
 
 def eccentricity_earth_orbit(julian_century):
     """Returns the Eccentricity or Earth Orbit with Julian Century, julian_century."""
-    return 0.016708634 - julian_century * (
-        0.000042037 + 0.0000001267 * julian_century
-    )
+    return 0.016708634 - julian_century * (0.000042037 + 0.0000001267 * julian_century)
 
 
 def solar_equation_of_center(julian_century, solar_geometric_mean_anomaly):
-    """Returns the Solar Equation of Center with Julian Century, julian_century and 
+    """Returns the Solar Equation of Center with Julian Century, julian_century and
     Solar Geometric Mean Anomaly, solar_geometric_mean_anomaly."""
     return (
         math.sin(math.radians(solar_geometric_mean_anomaly))
@@ -95,14 +92,14 @@ def solar_equation_of_center(julian_century, solar_geometric_mean_anomaly):
 
 
 def solar_true_longitude(solar_geometric_mean_longitude, solar_equation_of_center):
-    """Returns the Solar True Longitude with Solar Geometric Mean Longitude, 
+    """Returns the Solar True Longitude with Solar Geometric Mean Longitude,
     solar_geometric_mean_longitude, and Solar Equation of Center,
     solar_equation_of_center."""
     return solar_geometric_mean_longitude + solar_equation_of_center
 
 
 def solar_true_anomaly(solar_geometric_mean_anomaly, solar_equation_of_center):
-    """Returns the Solar True Anomaly with Solar Geometric Mean Anomaly, 
+    """Returns the Solar True Anomaly with Solar Geometric Mean Anomaly,
     solar_geometric_mean_anomaly, and Solar Equation of Center,
     solar_equation_of_center."""
     return solar_geometric_mean_anomaly + solar_equation_of_center
@@ -110,17 +107,17 @@ def solar_true_anomaly(solar_geometric_mean_anomaly, solar_equation_of_center):
 
 def solar_radius_vector_aus(eccentricity_earth_orbit, solar_true_anomaly):
     """Returns the Solar Radius Vector.
-    Measured as distance in Astronomical Units, (AUs). 
-    With Eccentricity of Earth's Orbit, eccentricity_earth_orbit, and Solar 
+    Measured as distance in Astronomical Units, (AUs).
+    With Eccentricity of Earth's Orbit, eccentricity_earth_orbit, and Solar
     True Anomaly, solar_true_anomaly.
     """
-    return (1.000001018 * (1 - eccentricity_earth_orbit ** 2)) / (
+    return (1.000001018 * (1 - eccentricity_earth_orbit**2)) / (
         1 + eccentricity_earth_orbit * math.cos(math.radians(solar_true_anomaly))
     )
 
 
 def solar_apparent_longitude(solar_true_longitude, julian_century):
-    """Returns the SolarApparentLongitude with Solar True Longitude, 
+    """Returns the SolarApparentLongitude with Solar True Longitude,
     solar_true_longitude, and Julian Century, julian_century."""
     return (
         solar_true_longitude
@@ -130,7 +127,7 @@ def solar_apparent_longitude(solar_true_longitude, julian_century):
 
 
 def mean_obliquity_ecliptic(julian_century):
-    """Returns the Mean Obliquity of Ecliptic in Degrees with Julian Century, 
+    """Returns the Mean Obliquity of Ecliptic in Degrees with Julian Century,
     julian_century."""
     return (
         23
@@ -140,10 +137,7 @@ def mean_obliquity_ecliptic(julian_century):
                 (
                     21.448
                     - julian_century
-                    * (
-                        46.815
-                        + julian_century * (0.00059 - julian_century * 0.001813)
-                    )
+                    * (46.815 + julian_century * (0.00059 - julian_century * 0.001813))
                 )
             )
             / 60
@@ -153,7 +147,7 @@ def mean_obliquity_ecliptic(julian_century):
 
 
 def obliquity_correction_deg(mean_obliquity_of_ecliptic_deg, julian_century):
-    """Returns Obliquity Correction in Degrees with Mean Obliquity Ecliptic, 
+    """Returns Obliquity Correction in Degrees with Mean Obliquity Ecliptic,
     mean_obliquity_of_ecliptic_deg and Julian Century, julian_century."""
     return mean_obliquity_of_ecliptic_deg + 0.00256 * math.cos(
         math.radians(125.04 - 1934.136 * julian_century)
@@ -161,7 +155,7 @@ def obliquity_correction_deg(mean_obliquity_of_ecliptic_deg, julian_century):
 
 
 def solar_accent_return(solar_apparent_longitude, obliquity_correction):
-    """Returns SolarAccentReturn with Solar Apparent Longitude, 
+    """Returns SolarAccentReturn with Solar Apparent Longitude,
     solar_apparent_longitude and Obliquity Correction , obliquity_correction"""
     return math.degrees(
         math.atan2(
@@ -196,9 +190,9 @@ def equation_of_time(
     eccentricity_earth_orbit,
     solar_geometric_mean_anomaly,
 ):
-    """Returns Equation Of Time, in minutes, with Var Y, var_y, 
-    Solar Geometric Mean Longitude, solar_geometric_mean_longitude, 
-    Eccentricity Earth Orbit, eccentricity_earth_orbit, Solar Geometric 
+    """Returns Equation Of Time, in minutes, with Var Y, var_y,
+    Solar Geometric Mean Longitude, solar_geometric_mean_longitude,
+    Eccentricity Earth Orbit, eccentricity_earth_orbit, Solar Geometric
     Mean Anomaly, solar_geometric_mean_anomaly.
     """
     return 4 * math.degrees(
@@ -253,24 +247,26 @@ def sunset_float(solar_noon_float, hour_angle_sunrise):
 
 
 def sunlight_duration(hour_angle_sunrise):
-    """Returns the duration of Sunlight, in minutes, with Hour Angle in degrees, 
+    """Returns the duration of Sunlight, in minutes, with Hour Angle in degrees,
     hour_angle."""
     return 8 * hour_angle_sunrise
 
 
 def true_solar_time_min(equation_of_time, long, local_tz):
-    """Returns True Solar time in minutes, with Equation of Time, equation_of_time, 
+    """Returns True Solar time in minutes, with Equation of Time, equation_of_time,
     Longitude, long and Local Time Zone, local tz."""
     return (0.5 * 1440 + equation_of_time + 4 * long - 60 * local_tz) % 1440
 
 
 def hour_angle_deg(true_solar_time):
     """Returns Hour Angle in Degrees, with True Solar Time, true_solar_time."""
-    return true_solar_time / 4 + 180 if true_solar_time < 0 else true_solar_time / 4 - 180
+    return (
+        true_solar_time / 4 + 180 if true_solar_time < 0 else true_solar_time / 4 - 180
+    )
 
 
 def solar_zenith_angle(lat, solar_decline, hour_angle):
-    """Returns Solar Zenith Angle in Degrees, with Latitude, lat, Solar Decline (Degrees), 
+    """Returns Solar Zenith Angle in Degrees, with Latitude, lat, Solar Decline (Degrees),
     solar_decline, Hour Angle (Degrees), hour_angle."""
     return math.degrees(
         math.acos(
@@ -288,15 +284,30 @@ def solar_elevation_angle(solar_zenith_angle):
 
 
 def approx_atmospheric_refraction(solar_elevation_angle):
-    """Returns Approximate Atmospheric Refraction in degrees with Solar Elevation 
+    """Returns Approximate Atmospheric Refraction in degrees with Solar Elevation
     Angle, solar_elevation_angle."""
     if solar_elevation_angle > 85:
         return 0
     elif solar_elevation_angle > 5:
-        return (58.1 / math.tan(math.radians(solar_elevation_angle)) - 0.07 / pow(math.tan(math.radians(solar_elevation_angle)), 3) + 0.000086 / pow(math.tan(math.radians(solar_elevation_angle)), 5)) / 3600
+        return (
+            58.1 / math.tan(math.radians(solar_elevation_angle))
+            - 0.07 / pow(math.tan(math.radians(solar_elevation_angle)), 3)
+            + 0.000086 / pow(math.tan(math.radians(solar_elevation_angle)), 5)
+        ) / 3600
 
     elif solar_elevation_angle > -0.575:
-        return (1735 + solar_elevation_angle * (-518.2 + solar_elevation_angle * (103.4 + solar_elevation_angle * (-12.79 + solar_elevation_angle * 0.711)))) / 3600
+        return (
+            1735
+            + solar_elevation_angle
+            * (
+                -518.2
+                + solar_elevation_angle
+                * (
+                    103.4
+                    + solar_elevation_angle * (-12.79 + solar_elevation_angle * 0.711)
+                )
+            )
+        ) / 3600
 
     else:
         return (-20.772 / math.tan(math.radians(solar_elevation_angle))) / 3600
@@ -305,18 +316,53 @@ def approx_atmospheric_refraction(solar_elevation_angle):
 def solar_elevation_corrected_atm_refraction(
     approx_atmospheric_refraction, solar_elevation_angle
 ):
-    """Returns the Solar Elevation Corrected Atmospheric Refraction, with the 
-    Approximate Atmospheric Refraction, approx_atmospheric_refraction and Solar 
+    """Returns the Solar Elevation Corrected Atmospheric Refraction, with the
+    Approximate Atmospheric Refraction, approx_atmospheric_refraction and Solar
     Elevation Angle, solar_elevation_angle."""
-    return (
-        approx_atmospheric_refraction + solar_elevation_angle
-    )
+    return approx_atmospheric_refraction + solar_elevation_angle
 
 
 def solar_azimuth(hour_angle, lat, solar_zenith_angle, solar_decline):
-    """Returns Solar Azimuth Angle Degrees Clockwise from North, with Latitude, lat and 
+    """Returns Solar Azimuth Angle Degrees Clockwise from North, with Latitude, lat and
     Solar Zenith Angle, solar_zenith_angle and Solar Decline, solar_decline."""
-    return (math.degrees(math.acos(((math.sin(math.radians(lat)) * math.cos(math.radians(solar_zenith_angle))) - math.sin(math.radians(solar_decline))) / (math.cos(math.radians(lat)) * math.sin(math.radians(solar_zenith_angle))))) + 180) % 360 if hour_angle > 0 else (540 - math.degrees(math.acos(((math.sin(math.radians(lat)) * math.cos(math.radians(solar_zenith_angle))) - math.sin(math.radians(solar_decline))) / (math.cos(math.radians(lat)) * math.sin(math.radians(solar_zenith_angle)))))) % 360
-
-
-
+    return (
+        (
+            math.degrees(
+                math.acos(
+                    (
+                        (
+                            math.sin(math.radians(lat))
+                            * math.cos(math.radians(solar_zenith_angle))
+                        )
+                        - math.sin(math.radians(solar_decline))
+                    )
+                    / (
+                        math.cos(math.radians(lat))
+                        * math.sin(math.radians(solar_zenith_angle))
+                    )
+                )
+            )
+            + 180
+        )
+        % 360
+        if hour_angle > 0
+        else (
+            540
+            - math.degrees(
+                math.acos(
+                    (
+                        (
+                            math.sin(math.radians(lat))
+                            * math.cos(math.radians(solar_zenith_angle))
+                        )
+                        - math.sin(math.radians(solar_decline))
+                    )
+                    / (
+                        math.cos(math.radians(lat))
+                        * math.sin(math.radians(solar_zenith_angle))
+                    )
+                )
+            )
+        )
+        % 360
+    )

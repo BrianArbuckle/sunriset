@@ -13,16 +13,20 @@ import pandas as pd
 
 from . import calc
 
+
 def to_pandas(start_date, lat, long, local_tz, number_of_years):
     """Returns a Pandas DataFrame of all the calculations for various solar projects.
     With a datetime.date for starting date, local latitude, lat, local Longitude, long
-    and local Time Zone as a positive or negative integer. """
+    and local Time Zone as a positive or negative integer."""
 
     # this will evelntially be the daylight savings output:
     tz_adjust = 0
     year = int(start_date.year)
     # Number of days claculation
-    total_days = sum(366 if year % 4 == 0 and year % 100 != 0 or year % 400 == 0 else 365 for _y in range(1, number_of_years + 1))
+    total_days = sum(
+        366 if year % 4 == 0 and year % 100 != 0 or year % 400 == 0 else 365
+        for _y in range(1, number_of_years + 1)
+    )
 
     dict_for_df = {}
     for i in range(total_days):
@@ -60,10 +64,37 @@ def to_pandas(start_date, lat, long, local_tz, number_of_years):
         atmr = calc.solar_elevation_corrected_atm_refraction(aprx, sela)
         azmt = calc.solar_azimuth(hand, lat, szen, sdec)
         dict_for_df[yr] = [
-            julian_day, julian_cent, sgml, sgma, eceo, seoc, stlg,
-            stan, svau, salg, mobe, ocor, asce, sdec, vary, eqtm,
-            hans, soln, srif, setf, noon, rise, sset, sdur, trst,
-            hand, szen, sela, aprx, atmr, azmt,
+            julian_day,
+            julian_cent,
+            sgml,
+            sgma,
+            eceo,
+            seoc,
+            stlg,
+            stan,
+            svau,
+            salg,
+            mobe,
+            ocor,
+            asce,
+            sdec,
+            vary,
+            eqtm,
+            hans,
+            soln,
+            srif,
+            setf,
+            noon,
+            rise,
+            sset,
+            sdur,
+            trst,
+            hand,
+            szen,
+            sela,
+            aprx,
+            atmr,
+            azmt,
         ]
     return pd.DataFrame.from_dict(
         dict_for_df,
@@ -107,13 +138,16 @@ def to_pandas(start_date, lat, long, local_tz, number_of_years):
 def to_dict(start_date, lat, long, local_tz, number_of_years):
     """Returns a Pandas DataFrame of all the calculations for various solar projects.
     With a datetime.date for starting date, Latitude, lat, local Longitude, long
-    and local Time Zone as a positive or negative integer. """
+    and local Time Zone as a positive or negative integer."""
 
     # this will evelntially be the daylight savings output:
     tz_adjust = 0
     year = int(start_date.year)
     # Number of days claculation
-    total_days = sum(366 if year % 4 == 0 and year % 100 != 0 or year % 400 == 0 else 365 for _y in range(1, number_of_years + 1))
+    total_days = sum(
+        366 if year % 4 == 0 and year % 100 != 0 or year % 400 == 0 else 365
+        for _y in range(1, number_of_years + 1)
+    )
 
     dict_for_df = {}
     for i in range(total_days):
@@ -151,10 +185,37 @@ def to_dict(start_date, lat, long, local_tz, number_of_years):
         atmr = calc.solar_elevation_corrected_atm_refraction(aprx, sela)
         azmt = calc.solar_azimuth(hand, lat, szen, sdec)
         dict_for_df[yr] = [
-            julian_day, julian_cent, sgml, sgma, eceo, seoc, stlg,
-            stan, svau, salg, mobe, ocor, asce, sdec, vary, eqtm,
-            hans, soln, srif, setf, noon, rise, sset, sdur, trst,
-            hand, szen, sela, aprx, atmr, azmt,
+            julian_day,
+            julian_cent,
+            sgml,
+            sgma,
+            eceo,
+            seoc,
+            stlg,
+            stan,
+            svau,
+            salg,
+            mobe,
+            ocor,
+            asce,
+            sdec,
+            vary,
+            eqtm,
+            hans,
+            soln,
+            srif,
+            setf,
+            noon,
+            rise,
+            sset,
+            sdur,
+            trst,
+            hand,
+            szen,
+            sela,
+            aprx,
+            atmr,
+            azmt,
         ]
     return dict_for_df
 
@@ -167,12 +228,12 @@ def sunrise_set_noon(date, lat, long, local_tz, tz_adjust=0):
     eceo = calc.eccentricity_earth_orbit(julian_cent)
     seoc = calc.solar_equation_of_center(julian_cent, sgma)
     stlg = calc.solar_true_longitude(sgml, seoc)
-    #stan = calc.solar_true_anomaly(sgma, seoc)
-    #svau = calc.solar_radius_vector_aus(eceo, stan)
+    # stan = calc.solar_true_anomaly(sgma, seoc)
+    # svau = calc.solar_radius_vector_aus(eceo, stan)
     salg = calc.solar_apparent_longitude(stlg, julian_cent)
     mobe = calc.mean_obliquity_ecliptic(julian_cent)
     ocor = calc.obliquity_correction_deg(mobe, julian_cent)
-    #asce = calc.solar_accent_return(salg, ocor)
+    # asce = calc.solar_accent_return(salg, ocor)
     sdec = calc.solar_decline(ocor, salg)
     vary = calc.var_y(ocor)
     eqtm = calc.equation_of_time(vary, sgml, eceo, sgma)
