@@ -36,7 +36,7 @@ def make_date_time(time_float, d_utz, tz_adjust):
     return dt
 
 
-def julian_day(usr_date, tz=0):
+def julian_day(usr_date: datetime.date, tz: float = 0) -> float:
     """Returns a local Julian Day float with datetime object 'date',
     which defaults to today, and time zone, tz as a positive or negative integer.
 
@@ -50,7 +50,7 @@ def julian_day(usr_date, tz=0):
     return usr_date + 0.5 - tz / 24
 
 
-def julian_century(jd_local):
+def julian_century(jd_local: float) -> float:
     """Returns the Julian Century with Julian Day, julian_local."""
     days_century = 2451545  # this is Saturday, AD 2000 Jan 1 in the Julian Calendar
     day_per_century = 36525
@@ -62,19 +62,19 @@ def julian_century(jd_local):
     return (jd_local - days_century) / day_per_century
 
 
-def solar_geometric_mean_longitude(julian_century):
+def solar_geometric_mean_longitude(julian_century: float) -> float:
     """Returns the Solar Geometric Mean with Julian Century, julian_century."""
     return (
         280.46646 + julian_century * (36000.76983 + julian_century * 0.0003032)
     ) % 360
 
 
-def solar_geometric_mean_anomaly(julian_century):
+def solar_geometric_mean_anomaly(julian_century: float) -> float:
     """Returns the Anomaly of Solar Geometric Mean with Julian Century, julian_century."""
     return 357.52911 + julian_century * (35999.05029 - 0.0001537 * julian_century)
 
 
-def eccentricity_earth_orbit(julian_century):
+def eccentricity_earth_orbit(julian_century: float) -> float:
     """Returns the Eccentricity or Earth Orbit with Julian Century, julian_century."""
     return 0.016708634 - julian_century * (0.000042037 + 0.0000001267 * julian_century)
 
