@@ -9,6 +9,8 @@ This package generates **Solar Position Data** based on Latitude, Longitude, Dat
 
 The initial goal was to create a *simple* function that produced the daily sunrise and sunset for any given location. These calculations create a large amount of useful data that can be used for other solar related calculations and are based on the calculations from [NOAA (National Oceanic & Atmospheric Administration)](https://www.esrl.noaa.gov/gmd/grad/solcalc/).  The calculations can be used in various projects, including, but not limited to, Solar Panel Placement, Sun Exposure for Building Construction, Photography, and Circadian Rhythm-based IOT projects, and Timers. 
 
+For examples is [sunriset-examples](https://github.com/BrianArbuckle/sunriset-examples)
+
 Get It Now
 ==========
 
